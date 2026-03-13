@@ -1,0 +1,186 @@
+description = """
+AI Training Arena polecat work formula.
+Extends standard polecat work with: build-after-10-tasks rule.
+
+Every polecat runs this loop:
+1. Load chapter from master-chapters.md
+2. Implement tasks one at a time
+3. After every 10 closed tasks → run master build loop
+4. On chapter complete → signal Mayor
+5. gt done → self-clean
+
+## Build After 10 Tasks Rule
+
+Every polecat MUST run the master build loop after closing 10 tasks:
+```bash
+bash gastown/master-build-loop.sh   # Linux/Mac
+pwsh gastown/master-build-loop.ps1  # Windows
+```
+
+Track count with: each `bd close` increments your task counter.
+Store counter in bead notes: `bd update {{issue}} --notes "tasks_done: N"`
+
+## Variables
+
+| Variable | Source | Description |
+|----------|--------|-------------|
+| issue | hook_bead | The assigned chapter issue ID |
+"""
+formula = "arena-polecat-work"
+version = 1
+
+[[steps]]
+id = "load-context"
+title = "Load context and chapter"
+description = """
+Initialize your session and load your chapter.
+
+```bash
+gt prime && bd prime
+gt hook                         # What's assigned to me?
+bd show {{issue}}               # Full chapter details
+```
+
+Read your chapter from `gastown/master-chapters.md`.
+Read coding rules from `gastown/ai-training-arena-rules.instructions.md`.
+Read orchestration spec from `gastown/ai-training-arena-gastown-orchestration.instructions.md`.
+
+**Exit criteria:** You understand your chapter, deliverables, and acceptance criteria."""
+
+[[steps]]
+id = "branch-setup"
+title = "Set up working branch"
+needs = ["load-context"]
+description = """
+```bash
+git status
+git checkout -b polecat/{{issue}}
+git fetch origin && git rebase origin/master
+```
+
+**Exit criteria:** On clean feature branch, synced with main."""
+
+[[steps]]
+id = "implement-with-build-gate"
+title = "Implement chapter with 10-task build gate"
+needs = ["branch-setup"]
+description = """
+Implement your chapter tasks. CRITICAL: Run the master build loop after every 10 closed tasks.
+
+## Task Loop (repeat until chapter complete):
+
+**1. Pick next task from your chapter**
+
+**2. Implement the file/feature**
+
+**3. Run per-codebase build check:**
+```bash
+# Smart Contracts (POLECAT-2):
+cd ai-training-arena-contracts && npx hardhat compile && npx hardhat test && cd ..
+
+# P2P Node (POLECAT-3):
+cd ai-training-arena-node && dotnet build --configuration Release && cd ..
+
+# Frontend WASM (POLECAT-4):
+cd ai-training-arena-frontend && cargo check && cargo test && cd ..
+
+# Scaffold (POLECAT-1): All 4 codebases
+bash gastown/master-build-loop.sh
+```
+
+**4. Commit:**
+```bash
+git add <files>
+git commit -m "feat(<scope>): <description> ({{issue}})"
+```
+
+**5. Close the task bead:**
+```bash
+bd close <task-bead-id>
+```
+
+**6. Update task counter in your issue notes:**
+```bash
+# Read current count from notes, increment, write back
+bd update {{issue}} --notes "tasks_done: N  last_build_at: M"
+```
+
+**7. EVERY 10 TASKS — RUN MASTER BUILD LOOP:**
+```bash
+# When tasks_done % 10 == 0:
+bash gastown/master-build-loop.sh
+
+# If PASS: continue
+# If FAIL: STOP. Fix. Do NOT close more tasks until build passes.
+#          Escalate after 3 failed attempts:
+gt mail send arena/witness -s "ESCALATION: Build failing" \
+  -m "Build failed after {{issue}} task N. Error: <error>"
+```
+
+**Exit criteria:** All chapter deliverables implemented, last build PASSES."""
+
+[[steps]]
+id = "final-build"
+title = "Run final master build loop"
+needs = ["implement-with-build-gate"]
+description = """
+Run the complete master build loop one final time before signaling completion.
+
+```bash
+bash gastown/master-build-loop.sh
+```
+
+**If FAIL:** Fix immediately. Do not proceed.
+**If PASS:** Continue to next step.
+
+**Exit criteria:** Master build loop passes all checks."""
+
+[[steps]]
+id = "self-review"
+title = "Self-review all changes"
+needs = ["final-build"]
+description = """
+```bash
+git diff origin/master...HEAD
+git log --oneline origin/master..HEAD
+```
+
+Check for:
+- No TODO/FIXME/HACK in committed code
+- All methods ≤50 lines
+- All files ≤500 lines
+- Cyclomatic complexity ≤10
+- No hardcoded secrets
+
+**Exit criteria:** Code clean, within metrics limits."""
+
+[[steps]]
+id = "signal-mayor"
+title = "Signal Mayor and submit"
+needs = ["self-review"]
+description = """
+Signal the Mayor that your chapter is complete:
+
+```bash
+gt mail send arena/mayor -s "CHAPTER COMPLETE: {{issue}}" \
+  -m "Chapter complete.
+Issue: {{issue}}
+Tasks completed: N
+Build: PASS
+Deliverables: <brief list>"
+```
+
+Then submit and self-clean:
+```bash
+bd update {{issue}} --notes "COMPLETE — all tasks done, build passes"
+gt done
+```
+
+You are gone after `gt done`. Done means gone.
+
+**Exit criteria:** Mayor notified, work submitted, sandbox nuked."""
+
+[vars]
+[vars.issue]
+description = "The assigned chapter issue ID"
+required = true
