@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-arena-darker text-white;
+    font-family: 'Syne', sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-arena-green text-black font-bold rounded-lg hover:opacity-90 transition-opacity;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 border border-arena-green text-arena-green font-bold rounded-lg hover:bg-arena-green hover:text-black transition-colors;
+  }
+
+  .card {
+    @apply bg-arena-card border border-arena-border rounded-xl p-6;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-arena-green via-arena-blue to-arena-purple bg-clip-text text-transparent;
+  }
+
+  .class-badge {
+    @apply inline-flex items-center px-2 py-1 rounded text-xs font-bold font-space-mono;
+  }
+}

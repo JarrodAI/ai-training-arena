@@ -2,3 +2,33 @@
 # Dolt database files (added by bd init)
 .dolt/
 *.db
+
+# Rust / WASM build artifacts
+target/
+ai-training-arena-frontend/pkg/
+*.wasm
+
+# Node / SvelteKit
+node_modules/
+.svelte-kit/
+*.local
+
+# Hardhat
+ai-training-arena-contracts/cache/
+ai-training-arena-contracts/artifacts/
+ai-training-arena-contracts/typechain-types/
+
+# .NET
+**/bin/
+**/obj/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Misc
+.DS_Store
+Thumbs.db
+.dolt-data/
+null

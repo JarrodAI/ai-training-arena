@@ -1,0 +1,74 @@
+{
+  "COLORS": {
+    "solana_purple": "#9945FF",
+    "solana_green": "#14F195",
+    "solana_blue": "#00D1FF",
+    "dark_bg": "#0D1117",
+    "card_bg": "#161B22",
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#8B949E"
+  },
+  "AGENT_CLASSES": {
+    "A": { "name": "Scout", "params": "3B-7B", "supply": 15000, "price_mnt": 10, "stake_wata": 100, "multiplier": 1.0, "base_reward": 0.041, "elo_start": 1500 },
+    "B": { "name": "Ranger", "params": "7B-32B", "supply": 6000, "price_mnt": 50, "stake_wata": 500, "multiplier": 1.2, "base_reward": 0.049, "elo_start": 1500 },
+    "C": { "name": "Vanguard", "params": "32B-70B", "supply": 2500, "price_mnt": 200, "stake_wata": 2000, "multiplier": 1.5, "base_reward": 0.062, "elo_start": 1500 },
+    "D": { "name": "Titan", "params": "70B-405B", "supply": 1200, "price_mnt": 800, "stake_wata": 8000, "multiplier": 2.0, "base_reward": 0.082, "elo_start": 1500 },
+    "E": { "name": "Overlord", "params": "405B+", "supply": 300, "price_mnt": 3000, "stake_wata": 30000, "multiplier": 3.0, "base_reward": 0.123, "elo_start": 1500 }
+  },
+  "TOKENOMICS": {
+    "ata_total_supply": 100000000,
+    "daily_battle_pool": 8219,
+    "daily_staking_pool": 8219,
+    "burn_rate": 0.02,
+    "buyback_rate": 0.05,
+    "distribution": {
+      "nft_vesting": 35000000,
+      "battle_rewards": 30000000,
+      "staking_rewards": 15000000,
+      "dao_treasury": 10000000,
+      "founders": 5000000,
+      "liquidity": 3000000,
+      "team_advisors": 2000000
+    }
+  },
+  "ROUND_TIMING": {
+    "major_round_hours": 3,
+    "battle_duration_min": 25,
+    "cooldown_min": 5,
+    "rounds_per_day": 8
+  },
+  "GOVERNANCE": {
+    "votes_per_ata": 1,
+    "staked_multiplier": 2,
+    "nft_holder_multiplier": 3,
+    "proposal_threshold": 100000,
+    "quorum": 10000000,
+    "voting_period_days": 7,
+    "voting_delay_days": 1,
+    "multisig_threshold": "3/5"
+  },
+  "CONTRACT_ADDRESSES": {
+    "mantle_testnet": {
+      "ata_token": "0x0000000000000000000000000000000000000000",
+      "agent_nft": "0x0000000000000000000000000000000000000000",
+      "ai_training_arena": "0x0000000000000000000000000000000000000000",
+      "wrapped_ata": "0x0000000000000000000000000000000000000000",
+      "battle_verifier": "0x0000000000000000000000000000000000000000",
+      "data_marketplace": "0x0000000000000000000000000000000000000000",
+      "governor": "0x0000000000000000000000000000000000000000",
+      "founder_revenue": "0x0000000000000000000000000000000000000000",
+      "matchmaking_registry": "0x0000000000000000000000000000000000000000"
+    },
+    "mantle_mainnet": {
+      "ata_token": "0x0000000000000000000000000000000000000000",
+      "agent_nft": "0x0000000000000000000000000000000000000000",
+      "ai_training_arena": "0x0000000000000000000000000000000000000000",
+      "wrapped_ata": "0x0000000000000000000000000000000000000000",
+      "battle_verifier": "0x0000000000000000000000000000000000000000",
+      "data_marketplace": "0x0000000000000000000000000000000000000000",
+      "governor": "0x0000000000000000000000000000000000000000",
+      "founder_revenue": "0x0000000000000000000000000000000000000000",
+      "matchmaking_registry": "0x0000000000000000000000000000000000000000"
+    }
+  }
+}

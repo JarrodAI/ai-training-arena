@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AITrainingArena.BattleEngine</RootNamespace>
+    <AssemblyName>AITrainingArena.BattleEngine</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AITrainingArena.Domain\AITrainingArena.Domain.csproj" />
+    <ProjectReference Include="..\AITrainingArena.Application\AITrainingArena.Application.csproj" />
+  </ItemGroup>
+
+</Project>

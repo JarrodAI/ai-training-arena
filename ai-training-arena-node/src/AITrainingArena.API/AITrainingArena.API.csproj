@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <RootNamespace>AITrainingArena.API</RootNamespace>
+    <AssemblyName>AITrainingArena.API</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AITrainingArena.Domain\AITrainingArena.Domain.csproj" />
+    <ProjectReference Include="..\AITrainingArena.Application\AITrainingArena.Application.csproj" />
+    <ProjectReference Include="..\AITrainingArena.Infrastructure\AITrainingArena.Infrastructure.csproj" />
+    <ProjectReference Include="..\AITrainingArena.BattleEngine\AITrainingArena.BattleEngine.csproj" />
+    <ProjectReference Include="..\AITrainingArena.Blockchain\AITrainingArena.Blockchain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.67.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
+  </ItemGroup>
+
+</Project>

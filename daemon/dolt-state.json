@@ -1,0 +1,10 @@
+{
+  "running": true,
+  "pid": 54348,
+  "port": 3307,
+  "started_at": "2026-03-18T18:55:56.4035607-04:00",
+  "data_dir": "C:\\Users\\David48\\Downloads\\code\\ai-training-arena\\.dolt-data",
+  "databases": [
+    "arena"
+  ]
+}

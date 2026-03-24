@@ -1,0 +1,40 @@
+services:
+  node:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "4001:4001"
+      - "8080:8080"
+      - "8081:8081"
+    volumes:
+      - arena-data:/app/data
+      - arena-models:/app/models
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - Node__MantleRpcUrl=https://rpc.mantle.xyz
+      - Node__IpfsApiUrl=/ip4/ipfs/tcp/5001
+    depends_on:
+      ipfs:
+        condition: service_healthy
+    restart: unless-stopped
+
+  ipfs:
+    image: ipfs/kubo:latest
+    ports:
+      - "5001:5001"
+      - "4002:4001"
+      - "8082:8080"
+    volumes:
+      - ipfs-data:/data/ipfs
+    healthcheck:
+      test: ["CMD", "ipfs", "id"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  arena-data:
+  arena-models:
+  ipfs-data:
